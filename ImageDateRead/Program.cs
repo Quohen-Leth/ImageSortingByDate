@@ -58,7 +58,7 @@ namespace ImageDateRead
             {
                 DateTime CrDate = fi.CreationTime;                                      //Читаєм дату створення
                 DateTime MdDate = fi.LastWriteTime;                                     //читаєм дату модифікації
-                DateTime ExifDate = MdDate;                                             //на випадок, якщо відсутій exif, прирівнюєм дату exif до дати модифікації
+                DateTime ExifDate = DateTime.MinValue;                                  //на випадок, якщо відсутій exif, встановлюємо дату exif 0
                 FileStream imgfile = File.Open(fi.FullName, FileMode.Open);             //відкриваєм файл в потік, щоб не лити весь файл в пам'ять
                 Image photo3 = Image.FromStream(imgfile, false, false);
                 try
