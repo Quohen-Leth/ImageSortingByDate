@@ -14,13 +14,6 @@ namespace ImageDateRead
 
     class Program
     {
-        static void DirPathFind()
-        {
-            ImgDir.ImgDirPath = Directory.GetCurrentDirectory() + "\\Images";
-            Console.WriteLine(ImgDir.ImgDirPath);
-        }
-
-
         static int FileCounter(string DirPath)
         {
             DirectoryInfo di = new DirectoryInfo(DirPath);
@@ -42,7 +35,6 @@ namespace ImageDateRead
             {
                 Console.WriteLine($"{propItem.Id} {propItem.Type.ToString()} {propItem.Len.ToString()}");
             }*/
-            //BitmapData mdata = 
             byte[] exif306 = photo3.GetPropertyItem(306).Value;
             ASCIIEncoding enc = new ASCIIEncoding();
             string strng306 = enc.GetString(exif306, 0, exif306.Length - 1);
@@ -82,27 +74,47 @@ namespace ImageDateRead
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Press 'Enter' to continue:");
-            Console.ReadLine();
-            // pass folder path with the program argument like  your-program.exe --folder={path to the folder with images}
-            // example usage in commandline: your-program.exe --folder="c:\test\images"
-            // during programming and debug you can put arguments in project properties->Debug->Command Line Arguments
-            // all passed arguments will be present in string[] args input array
-            // parse argument and get folder path value than use it in FolderScanner
             /*
+            pass folder path with the program argument like  your-program.exe --folder={path to the folder with images}
+            example usage in commandline: your-program.exe --folder="c:\test\images"
+            during programming and debug you can put arguments in project properties->Debug->Command Line Arguments
+            all passed arguments will be present in string[] args input array
+            parse argument and get folder path value than use it in FolderScanner
+            
             var inpuFolder = { get from arguments}
             var files = new FolderScanner().GetFiles(inputFolder);
             foreach(var f in files)
             {
                 getDateFromFile(f);
-            }*/
-
-            DirPathFind();
-            int Countt = FileCounter(ImgDir.ImgDirPath);
-            Console.WriteLine($"Total: {Countt} files");
-            ImgFileDate(ImgDir.ImgDirPath);
-            //OneImgFileDate();
-            Console.ReadLine();
+            }
+            */
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Run program with parameter --folder=<path>");
+                Console.ReadLine();
+            }
+            else
+            {
+                
+            }
+            string conarg = args[0];
+            int first = conarg.IndexOf("'");
+            int last = conarg.LastIndexOf("'");
+            ImgDir.ImgDirPath = conarg.Substring(first + 1, last - first - 1);
+            if (Directory.Exists(ImgDir.ImgDirPath))
+            {
+                Console.WriteLine(ImgDir.ImgDirPath);
+                int Countt = FileCounter(ImgDir.ImgDirPath);
+                Console.WriteLine($"Total: {Countt} files");
+                ImgFileDate(ImgDir.ImgDirPath);
+                //OneImgFileDate();
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("'{0}' is not a valid directory.",ImgDir.ImgDirPath);
+                Console.ReadLine();
+            }
         }
         
     }
