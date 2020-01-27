@@ -4,3 +4,9 @@ E:\VSprojects\img_date_read\ImageDateRead\ImageDateRead\bin\Debug\ImageDateRead.
 E:\VSprojects\img_date_read\ImageDateRead\ImageDateRead\bin\Debug\ImageDateRead.pdb
 E:\VSprojects\img_date_read\ImageDateRead\ImageDateRead\obj\Debug\ImageDateRead.exe
 E:\VSprojects\img_date_read\ImageDateRead\ImageDateRead\obj\Debug\ImageDateRead.pdb
+D:\CSProjects\ImageDateRead\ImageSortingByDate\ImageDateRead\bin\Debug\ImageDateRead.exe.config
+D:\CSProjects\ImageDateRead\ImageSortingByDate\ImageDateRead\bin\Debug\ImageDateRead.exe
+D:\CSProjects\ImageDateRead\ImageSortingByDate\ImageDateRead\bin\Debug\ImageDateRead.pdb
+D:\CSProjects\ImageDateRead\ImageSortingByDate\ImageDateRead\obj\Debug\ImageDateRead.csprojAssemblyReference.cache
+D:\CSProjects\ImageDateRead\ImageSortingByDate\ImageDateRead\obj\Debug\ImageDateRead.exe
+D:\CSProjects\ImageDateRead\ImageSortingByDate\ImageDateRead\obj\Debug\ImageDateRead.pdb
