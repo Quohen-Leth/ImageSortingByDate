@@ -92,18 +92,16 @@ namespace ImageDateRead
             {
                 Console.WriteLine("Run program with parameter --folder=<path>");
                 Console.ReadLine();
+                return;
             }
-            else
-            {
-                
-            }
-            string conarg = args[0];
+            var conarg = args[0];
             int first = conarg.IndexOf("'");
             int last = conarg.LastIndexOf("'");
             ImgDir.ImgDirPath = conarg.Substring(first + 1, last - first - 1);
             if (Directory.Exists(ImgDir.ImgDirPath))
             {
                 Console.WriteLine(ImgDir.ImgDirPath);
+                
                 int Countt = FileCounter(ImgDir.ImgDirPath);
                 Console.WriteLine($"Total: {Countt} files");
                 ImgFileDate(ImgDir.ImgDirPath);
