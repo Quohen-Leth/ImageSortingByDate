@@ -1,4 +1,11 @@
-ImageDateRead/bin
-ImageDateRead/obj
-packages
-.vs/ImageDateRead
+.vs/
+bin/
+obj/
+packages/
+tools/
+output/
+AppPackages/
+
+*.user
+*.nuget.targets
+*.lock.json
