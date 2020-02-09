@@ -1,22 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.IO;
+using System;
 
 namespace ImageDateRead
 {
-    public struct FileInfo
+    // Yurko's remark: FileInfo is a standard class for file hadling in C#, so I changed the name FileInfo into CurrFileInfo
+    // Also GetFiles is the method of Directory class, so I renamed it into CurrGetFiles
+    public struct CurrFileInfo
     {
-        string path;
+        public string path;
+        public CurrFileInfo(string p1)
+        {
+            path = p1;
+        }
     }
     
     public class FolderScanner
     {
-        public List<FileInfo> GetFiles(string searchDir)
+        public List<CurrFileInfo> CurrGetFiles(string searchDir)
         {
             // TODO recursively scan folder for image files and return list with file paths
-            return new List<FileInfo>();
+
+            //
+            List<CurrFileInfo> CurList = new List<CurrFileInfo>();
+            var jpgfiles = Directory.EnumerateFiles(searchDir, "*.jp*");
+            foreach (var fff in jpgfiles)
+            {
+                CurList.Add(new CurrFileInfo(fff));
+            }
+            return CurList;
         }
     }
 }
