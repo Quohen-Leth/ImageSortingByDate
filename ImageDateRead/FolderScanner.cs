@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System;
 
 namespace ImageDateRead
 {
     // Yurko's remark: FileInfo is a standard class for file hadling in C#, so I changed the name FileInfo into CurrFileInfo
-    // Also GetFiles is the method of Directory class, so I renamed it into CurrGetFiles
     public struct CurrFileInfo
     {
         public string path;
@@ -17,11 +15,12 @@ namespace ImageDateRead
     
     public class FolderScanner
     {
-        public List<CurrFileInfo> CurrGetFiles(string searchDir)
+        public List<CurrFileInfo> GetFiles(string searchDir)
         {
             // TODO recursively scan folder for image files and return list with file paths
-
-            //
+            
+            // Yurko's remark: Haven't found any methods for searching files, like FindFirst/FindNext for recursive search.
+            // The only way to read filenames in directory is EnumerateFiles (or GetFiles) which returns a collection of filenames.
             List<CurrFileInfo> CurList = new List<CurrFileInfo>();
             var jpgfiles = Directory.EnumerateFiles(searchDir, "*.jp*");
             foreach (var fff in jpgfiles)
