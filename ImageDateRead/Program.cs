@@ -98,7 +98,7 @@ namespace ImageDateRead
             }
             Console.WriteLine($"In Directory {ImgDirPath}:");
             FolderScanner CurFolderScanner = new FolderScanner();
-            var ImgFiles = CurFolderScanner.GetFiles(ImgDirPath);
+            var ImgFiles = CurFolderScanner.GetFiles(ImgDirPath, new System.Collections.Generic.List<CurrFileInfo>());
             Console.WriteLine($"{ImgFiles.Count} JPEG files total.");
             foreach (var fl in ImgFiles)
             {

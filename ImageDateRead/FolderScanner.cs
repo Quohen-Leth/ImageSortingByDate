@@ -16,37 +16,43 @@ namespace ImageDateRead
     
     public class FolderScanner
     {
-        string[] jf1;
-
-        string[] DirSearch(string SearchPath)
+        /*static List<string> DirSearch2(string sDir, List<string> files)
         {
-            foreach (string d in Directory.GetDirectories(SearchPath))
+            foreach(string f in Directory.GetFiles(sDir, "*.jp*"))
             {
-                //Console.WriteLine(d);
-                foreach (string f in Directory.GetFiles(d))
-                {
-                    jf1.
-                    Console.WriteLine(f);
-                }
-                DirSearch(d);
+                files.Add(f);
             }
-        }
+            foreach(string d in Directory.GetDirectories(sDir))
+            {
+                DirSearch2(d, files);
+            }
+            return files;
+        }*/
 
-        public List<CurrFileInfo> GetFiles(string SearchDir)
+        public List<CurrFileInfo> GetFiles(string SearchDir, List<CurrFileInfo> jfiles)
         {
             // TODO recursively scan folder for image files and return list with file paths
-            
+
             // Yurko's remark: Haven't found any methods for searching files, like FindFirst/FindNext for recursive search.
             // The only way to read filenames in directory is EnumerateFiles (or GetFiles) which returns a collection of filenames.
-            List<CurrFileInfo> CurList = new List<CurrFileInfo>();
-
-            string[] jf = DirSearch(SearchDir);
-            var jpgfiles = Directory.EnumerateFiles(SearchDir, "*.jp*");
-            foreach (var fff in jpgfiles)
+            // Also Directory.GetFiles(SearchDir, "*.jp*", SearchOption.AllDirectories) works.
+            /*List<CurrFileInfo> CurList = new List<CurrFileInfo>();*/
+            foreach (string f in Directory.GetFiles(SearchDir, "*.jp*"))
             {
-                CurList.Add(new CurrFileInfo(fff));
+                jfiles.Add(new CurrFileInfo(f));
             }
-            return CurList;
+            foreach(string d in Directory.GetDirectories(SearchDir))
+            {
+                GetFiles(d, jfiles);
+            }
+
+
+            /*List<string> jpf = DirSearch2(SearchDir, new List<string>());
+            foreach (var f in jpf)
+            {
+                CurList.Add(new CurrFileInfo(f));
+            }*/
+            return /*CurList*/ jfiles;
         }
     }
 }
