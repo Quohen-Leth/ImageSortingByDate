@@ -36,6 +36,7 @@ namespace ImageDateRead
             }
             Console.WriteLine($"{fl.Name} - { CrDate } - { MdDate } - { ExifDate }");
         }
+
         // Method that reads all available EXIF fields in selected file and returns their Id, Type and Length.
         /*static void OneImgFileDate()
         {
@@ -61,7 +62,7 @@ namespace ImageDateRead
 
         static void Main(string[] args)
         {
-            
+
             // pass folder path with the program argument like  your-program.exe --folder={path to the folder with images}
             // example usage in commandline: your-program.exe --folder="c:\test\images"
             // during programming and debug you can put arguments in project properties->Debug->Command Line Arguments
@@ -84,37 +85,28 @@ namespace ImageDateRead
                 // If not, then close application.
                 return;
             }
-            var conarg = args[0];
-            // Verifying that quotations was set properly.
-            if (!conarg.Contains("'"))
+            string ImgDirPath = "_";
+            try
             {
-                Console.WriteLine("Directory must be selected with ' '");
+                ImgDirPath = CommandLineArgumentsParser.Parse(args[0]);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
                 Console.ReadLine();
-                // If not, then close application.
                 return;
             }
-            // Parsing folder path from launch argument
-            int first = conarg.IndexOf("'");
-            int last = conarg.LastIndexOf("'");
-            string ImgDirPath = conarg.Substring(first + 1, last - first - 1);
-            // Verifying that folder exists.
-            if (Directory.Exists(ImgDirPath))
+            Console.WriteLine($"In Directory {ImgDirPath}:");
+            FolderScanner CurFolderScanner = new FolderScanner();
+            var ImgFiles = CurFolderScanner.GetFiles(ImgDirPath);
+            Console.WriteLine($"{ImgFiles.Count} JPEG files total.");
+            foreach (var fl in ImgFiles)
             {
-                Console.WriteLine($"In Directory {ImgDirPath}:");
-                FolderScanner CurFolderScanner = new FolderScanner();
-                var ImgFiles = CurFolderScanner.GetFiles(ImgDirPath);
-                Console.WriteLine($"{ImgFiles.Count} JPEG files total.");
-                foreach (var fl in ImgFiles)
-                {
-                    GetDateFromFile(fl);
-                }
-                Console.ReadLine();
+                GetDateFromFile(fl);
             }
-            else
-            {
-                Console.WriteLine("'{0}' is not a valid directory.",ImgDirPath);
-                Console.ReadLine();
-            }
+            Console.ReadLine();
+
+
         }
     }
 }
