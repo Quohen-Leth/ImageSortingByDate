@@ -9,6 +9,8 @@ namespace ImageDateRead
 {
     class Program
     {
+
+        //TODO move all image date parsing logic to separate class for example ImageParser.cs
         static void GetDateFromFile(CurrFileInfo FilePath)
         {
             FileInfo fl = new FileInfo(FilePath.path);
@@ -56,27 +58,10 @@ namespace ImageDateRead
             Console.WriteLine(ExifDate);
         }*/
 
-        // (kuzya review ) TODO never commit bin, obj or other generated folders and files
-        // move Images folder with some test data to the root of project, delete bin and obj folders and add these folders to the .gitignore file
-        // https://help.github.com/en/github/using-git/ignoring-files
-
         static void Main(string[] args)
         {
-
-            // pass folder path with the program argument like  your-program.exe --folder={path to the folder with images}
-            // example usage in commandline: your-program.exe --folder="c:\test\images"
-            // during programming and debug you can put arguments in project properties->Debug->Command Line Arguments
-            // all passed arguments will be present in string[] args input array
-            // parse argument and get folder path value than use it in FolderScanner
-            /*
-            var inpuFolder = { get from arguments}
-            var files = new FolderScanner().GetFiles(inputFolder);
-            foreach(var f in files)
-            {
-                getDateFromFile(f);
-            }
-            */
-
+            //TODO  move all logic to CommandLineArgumentsParser
+            // checking arguments length and exception is a deal of Parser not a program
             // Verifying that launch argument was set.
             if (args.Length == 0)
             {
@@ -97,6 +82,8 @@ namespace ImageDateRead
                 return;
             }
             Console.WriteLine($"In Directory {ImgDirPath}:");
+
+            // TODO use naming rules  all local and private variable must start from lower case - curFolderScanner  etc
             FolderScanner CurFolderScanner = new FolderScanner();
             var ImgFiles = CurFolderScanner.GetFiles(ImgDirPath, new System.Collections.Generic.List<CurrFileInfo>());
             Console.WriteLine($"{ImgFiles.Count} JPEG files total.");

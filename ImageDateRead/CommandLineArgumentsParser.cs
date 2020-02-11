@@ -13,6 +13,17 @@ namespace ImageDateRead
 
     public class CommandLineArgumentsParser
     {
+        // TODO Our programm will support logging to Console or saving file information to file
+        // there will be two possible usages from commandline
+        // your-program.exe --folder="c:\test\images"  --log=console
+        // will scan files and output file info to the console
+        // 
+        // your-program.exe --folder="c:\test\images" --log=file --report-file="report.txt"
+        // will scan files and output file info to the text file defined in --report-file
+
+        // 
+        // TODO support parsing few arguments  for example
+        // your-program.exe --folder="c:\test\images" --log=console --report-file="report.txt"
         public static string Parse (string CommandLineArgument)
         {
             // Verifying that quotations was set properly.
