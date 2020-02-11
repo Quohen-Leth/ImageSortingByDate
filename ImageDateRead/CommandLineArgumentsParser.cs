@@ -3,10 +3,10 @@ using System.IO;
 
 namespace ImageDateRead
 {
-    public class QuotationException : Exception
+    class quotationException : Exception
     {
         const string message = "Directory must be selected with ' '";
-        public QuotationException()
+        public quotationException()
             :base(message)
         { }
     }
@@ -24,20 +24,25 @@ namespace ImageDateRead
         // 
         // TODO support parsing few arguments  for example
         // your-program.exe --folder="c:\test\images" --log=console --report-file="report.txt"
-        public static string Parse (string CommandLineArgument)
+        public static string Parse (string[] commandLineArgument)
         {
+            // Verifying that launch argument was set.
+            if (commandLineArgument.Length == 0)
+            {
+                throw new Exception("Run program with parameter --folder=<path>");
+            }
             // Verifying that quotations was set properly.
-            if (!CommandLineArgument.Contains("'")){
-                throw new QuotationException();
+            if (!commandLineArgument[0].Contains("'")){
+                throw new quotationException();
             }
             // Parsing folder path from launch argument
-            int first = CommandLineArgument.IndexOf("'");
-            int last = CommandLineArgument.LastIndexOf("'");
+            int first = commandLineArgument[0].IndexOf("'");
+            int last = commandLineArgument[0].LastIndexOf("'");
             // Verifying that both quotations was set properly.
             if (first == last){
-                throw new QuotationException();
+                throw new quotationException();
             }
-            string FolderPath = CommandLineArgument.Substring(first + 1, last - first - 1);
+            string FolderPath = commandLineArgument[0].Substring(first + 1, last - first - 1);
             // Verifying that folder exists.
             if (!Directory.Exists(FolderPath)){
                 throw new DirectoryNotFoundException($"'{FolderPath}' is not a valid directory.");

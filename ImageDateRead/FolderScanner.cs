@@ -4,28 +4,33 @@ using System;
 
 namespace ImageDateRead
 {
-    // Yurko's remark: FileInfo is a standard class for file hadling in C#, so I changed the name FileInfo into CurrFileInfo
     public struct CurrFileInfo
     {
-        public string path;
-        public CurrFileInfo(string p1)
+        public string Path;
+        public DateTime DateCreated;
+        public DateTime DateModified;
+        public DateTime DateEXIF;
+        public CurrFileInfo(string path, DateTime dateCreated, DateTime dateModified, DateTime dateEXIF)
         {
-            path = p1;
+            Path = path;
+            DateCreated = dateCreated;
+            DateModified = dateModified;
+            DateEXIF = dateEXIF;
         }
     }
     
     public class FolderScanner
     {
-        // TODO reminder C#  code convention for naming variables and methods
-        public List<CurrFileInfo> GetFiles(string SearchDir, List<CurrFileInfo> jfiles, string searchPattern = "*.jp*")
+        // Completed TODO reminder C#  code convention for naming variables and methods
+        public List<CurrFileInfo> GetFiles(string searchDir, List<CurrFileInfo> jfiles, string searchPattern)
         {
-            foreach (string f in Directory.GetFiles(SearchDir, searchPattern))
+            foreach (string f in Directory.GetFiles(searchDir, searchPattern))
             {
-                jfiles.Add(new CurrFileInfo(f));
+                jfiles.Add(new CurrFileInfo() {Path = f});
             }
-            foreach(string d in Directory.GetDirectories(SearchDir))
+            foreach(string d in Directory.GetDirectories(searchDir))
             {
-                GetFiles(d, jfiles);
+                GetFiles(d, jfiles, searchPattern);
             }
 
             return jfiles;
