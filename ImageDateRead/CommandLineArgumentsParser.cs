@@ -25,7 +25,7 @@ namespace ImageDateRead
 
     public class CommandLineArgumentsParser
     {
-        // TODO Our programm will support logging to Console or saving file information to file
+        // Completed TODO Our programm will support logging to Console or saving file information to file
         // there will be two possible usages from commandline
         // your-program.exe --folder="c:\test\images"  --log=console
         // will scan files and output file info to the console
@@ -34,14 +34,14 @@ namespace ImageDateRead
         // will scan files and output file info to the text file defined in --report-file
 
         // 
-        // TODO support parsing few arguments  for example
+        // Completed TODO support parsing few arguments  for example
         // your-program.exe --folder="c:\test\images" --log=console --report-file="report.txt"
         public static string Parse (string[] commandLineArgument)
         {
             // Verifying that launch argument was set.
             if (commandLineArgument.Length == 0)
             {
-                throw new Exception("Run program with parameters: --folder=<path> [--log=console] [--report-file='report.txt']");
+                throw new Exception("Run program with parameters: --folder=<path> [--log=console] [--log=file]");
             }
             // Verifying that quotations was set properly.
             if (!commandLineArgument[0].Contains("'")){
@@ -58,7 +58,7 @@ namespace ImageDateRead
             string pattern4 = @"--log=file";
             if (!Regex.IsMatch(commandLineArgument[0], pattern1))
             {
-                throw new Exception("Run program with parameters: --folder=<path> [--log=console] [--report-file='report.txt']");
+                throw new Exception("Run program with parameters: --folder=<path> [--log=console] [--log=file]");
             }
             var matchFolderPath = Regex.Match(commandLineArgument[0], pattern1);
             string FolderPath = Regex.Replace(matchFolderPath.Value, pattern2, String.Empty);
@@ -71,7 +71,6 @@ namespace ImageDateRead
             LogFlags.FileFlag = false;
             foreach (string cLA in commandLineArgument)
             {
-                Console.WriteLine(cLA);
                 if (Regex.IsMatch(cLA, pattern3))
                 {
                     LogFlags.ConsoleFlag = true;
@@ -81,8 +80,6 @@ namespace ImageDateRead
                     LogFlags.FileFlag = true;
                 }
             }
-            Console.WriteLine(LogFlags.ConsoleFlag);
-            Console.WriteLine(LogFlags.FileFlag);
             return FolderPath;
 
             /*

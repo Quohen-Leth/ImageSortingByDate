@@ -26,11 +26,26 @@ namespace ImageDateRead
             var curFolderScanner = new FolderScanner();
             System.Collections.Generic.List<CurrFileInfo> imgFiles = curFolderScanner.GetFiles(imgDirPath, new System.Collections.Generic.List<CurrFileInfo>(),"*.jp*");
             Console.WriteLine($"{imgFiles.Count} JPEG files total.");
+            System.Collections.Generic.List<CurrFileInfo> imgFiles2 = new System.Collections.Generic.List<CurrFileInfo>();
             foreach (var fl in imgFiles)
             {
                 CurrFileInfo fl1 = ImageParser.GetDateFromFile(fl);
-                Console.WriteLine($"{fl1.Path} {fl1.DateCreated} {fl1.DateModified} {fl1.DateEXIF}");
+                imgFiles2.Add(fl1);
             }
+            if (LogFlags.ConsoleFlag || LogFlags.FileFlag)
+            {
+                var results = new ResultsOutput();
+                bool completed = results.Output(imgFiles2, imgDirPath, LogFlags.ConsoleFlag, LogFlags.FileFlag);
+                if (completed)
+                {
+                    Console.WriteLine("Completed");
+                }
+                else
+                {
+
+                }
+            }
+
             Console.ReadLine();
         }
     }
