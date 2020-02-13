@@ -8,6 +8,22 @@ namespace ImageDateRead
 {
     public class ImageParser
     {
+
+        public ImageParser()
+        {
+        }
+
+        /// <summary>
+        /// Shold do the same as we now do in program  but with this method interface
+        /// </summary>
+        /// <param name="inputFolder">image input folder</param>
+        /// <param name="output">Output object where to save info (console, file memory)</param>
+        public void CreateImageFileStatistic(string inputFolder, Logger output)
+        {
+            // TODO implement 
+        }
+
+        //TODO avoid using static methods
         public static CurrFileInfo GetDateFromFile(CurrFileInfo filePath)
         {
             var fl = new FileInfo(filePath.Path);

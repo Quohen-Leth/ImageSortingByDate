@@ -4,8 +4,13 @@ using System.Text.RegularExpressions;
 
 namespace ImageDateRead
 {
+    // TODO avoid using static variables
+    // remove static vars and use public
+    // put here parsed input folder path
+
     public struct LogFlags
     {
+        
         public static bool FileFlag;
         public static bool ConsoleFlag;
         public LogFlags(bool fileFlag, bool consoleFlag)
@@ -33,9 +38,10 @@ namespace ImageDateRead
         // your-program.exe --folder="c:\test\images" --log=file --report-file="report.txt"
         // will scan files and output file info to the text file defined in --report-file
 
-        // 
-        // Completed TODO support parsing few arguments  for example
+        
         // your-program.exe --folder="c:\test\images" --log=console --report-file="report.txt"
+
+        //TODO return RunConfig (LogFlags)  object instead of string and setting static variables
         public static string Parse (string[] commandLineArgument)
         {
             // Verifying that launch argument was set.
@@ -62,7 +68,13 @@ namespace ImageDateRead
             }
             var matchFolderPath = Regex.Match(commandLineArgument[0], pattern1);
             string FolderPath = Regex.Replace(matchFolderPath.Value, pattern2, String.Empty);
-            // Verifying that folder exists.
+
+            // TODO do not check here if folder exist in this class.
+            // this class only does parsing and returns config (Single responsibility)
+            // cheking folders path is a deal of Program not a parser
+            // TODO read about SOLID (https://uk.wikipedia.org/wiki/SOLID_(%D0%BE%D0%B1%27%D1%94%D0%BA%D1%82%D0%BD%D0%BE-%D0%BE%D1%80%D1%96%D1%94%D0%BD%D1%82%D0%BE%D0%B2%D0%B0%D0%BD%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F))
+            // You should not understand everything in SOLID at this stage but you should read
+            // Verifying that folder exists. 
             if (!Directory.Exists(FolderPath))
             {
                 throw new DirectoryNotFoundException($"'{FolderPath}' is not a valid directory.");
