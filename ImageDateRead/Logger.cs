@@ -5,6 +5,10 @@ namespace ImageDateRead
 {
     public class Logger
     {
+        public Logger(string path, bool consoleOut, bool fileOut)
+        {
+            //TODO save these vars in class,  do not pass everytime in log methods
+        }
 
         // TODO support third option to save log in memory  (just save in string variable)
         //TODO avoid using full namespace like System.Collections.Generic.List  use List instead and import namespace in using
@@ -38,7 +42,7 @@ namespace ImageDateRead
         {
             //TODO implement message logging to the Console, File, Memory like in Output method
             // but with this interface,  in ideal case this class should not know anything what he is logging
-            // it should know about CurrFileInfo, or any other entity. also flags like (string path, bool consoleOut, bool fileOut)
+            // it should NOT know about CurrFileInfo, or any other entity. also flags like (string path, bool consoleOut, bool fileOut)
             // must be set one time in class constructor
         }
     }
