@@ -5,7 +5,7 @@ namespace ImageDateRead
 {
     public class Logger
     {
-        public Logger(string path, bool consoleOut, bool fileOut)
+        public Logger(string path = null, bool consoleOut = false, bool fileOut = false)
         {
             //TODO save these vars in class,  do not pass everytime in log methods
         }
