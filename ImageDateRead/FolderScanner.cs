@@ -32,7 +32,6 @@ namespace ImageDateRead
             {
                 GetFiles(d, jfiles, searchPattern);
             }
-
             return jfiles;
         }
     }

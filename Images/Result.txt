@@ -1,0 +1,6 @@
+e:\VSprojects\img_date_read\ImageDateRead\Images\2008-12-08a.jpeg - 27.01.2020 09:47:03 - 09.12.2008 15:55:38 - 09.12.2008 15:55:37
+e:\VSprojects\img_date_read\ImageDateRead\Images\IMG_20200125_153243931.jpg - 27.01.2020 09:47:03 - 25.01.2020 15:32:45 - 25.01.2020 15:32:44
+e:\VSprojects\img_date_read\ImageDateRead\Images\Images1\1Туркул.jpg - 27.01.2020 09:47:02 - 02.04.2012 19:19:38 - 01.01.0001 00:00:00
+e:\VSprojects\img_date_read\ImageDateRead\Images\Images3\285576_241787289184840_100000607121950_828461_1925783_n.jpg - 27.01.2020 09:47:03 - 25.07.2011 20:45:53 - 01.01.0001 00:00:00
+e:\VSprojects\img_date_read\ImageDateRead\Images\Images3\Images4\IMG_20200112_150526073.jpg - 27.01.2020 09:47:03 - 12.01.2020 15:05:26 - 12.01.2020 15:05:25
+e:\VSprojects\img_date_read\ImageDateRead\Images\Images3\Images4\Images5\26179418904699447981332.jpg - 27.01.2020 09:47:03 - 04.01.2012 17:17:58 - 01.01.0001 00:00:00

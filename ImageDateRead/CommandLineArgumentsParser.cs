@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Text.RegularExpressions;
 
 namespace ImageDateRead
@@ -30,27 +29,16 @@ namespace ImageDateRead
 
     public class CommandLineArgumentsParser
     {
-        // Completed TODO Our programm will support logging to Console or saving file information to file
-        // there will be two possible usages from commandline
-        // your-program.exe --folder="c:\test\images"  --log=console
-        // will scan files and output file info to the console
-        // 
-        // your-program.exe --folder="c:\test\images" --log=file --report-file="report.txt"
-        // will scan files and output file info to the text file defined in --report-file
-
-        
-        // your-program.exe --folder="c:\test\images" --log=console --report-file="report.txt"
-
         //TODO return RunConfig (LogFlags)  object instead of string and setting static variables
-        public static string Parse (string[] commandLineArgument)
+        public static string Parse (string[] commandLineArguments)
         {
             // Verifying that launch argument was set.
-            if (commandLineArgument.Length == 0)
+            if (commandLineArguments.Length == 0)
             {
-                throw new Exception("Run program with parameters: --folder=<path> [--log=console] [--log=file]");
+                throw new Exception("Run program with parameters: --folder=<path to folder> [--log=console] [--log=file --report-file=<file name>]");
             }
             // Verifying that quotations was set properly.
-            if (!commandLineArgument[0].Contains("'")){
+            if (!commandLineArguments[0].Contains("'")){
                 throw new quotationException();
             }
             // Regular expression patterns for command line argument parsing.
@@ -62,58 +50,47 @@ namespace ImageDateRead
             string pattern3 = @"--log=console";
             // Pattern to check if file log is selected:
             string pattern4 = @"--log=file";
-            if (!Regex.IsMatch(commandLineArgument[0], pattern1))
+            // Pattern to check if log file name is set:
+            string pattern5 = @"--report-file='[^']*'";
+            // Pattern for removing superfluous chars from file name pattern:
+            string pattern6 = @"(--report-file=|')";
+            if (!Regex.IsMatch(commandLineArguments[0], pattern1))
             {
-                throw new Exception("Run program with parameters: --folder=<path> [--log=console] [--log=file]");
+                throw new Exception("Run program with parameters: --folder=<path to path> [--log=console] [--log=file --report-file=<file name>]");
             }
-            var matchFolderPath = Regex.Match(commandLineArgument[0], pattern1);
-            string FolderPath = Regex.Replace(matchFolderPath.Value, pattern2, String.Empty);
+            var matchFolderPath = Regex.Match(commandLineArguments[0], pattern1);
+            string folderPath = Regex.Replace(matchFolderPath.Value, pattern2, String.Empty);
 
-            // TODO do not check here if folder exist in this class.
+            // Completed TODO do not check here if folder exist in this class.
             // this class only does parsing and returns config (Single responsibility)
             // cheking folders path is a deal of Program not a parser
             // TODO read about SOLID (https://uk.wikipedia.org/wiki/SOLID_(%D0%BE%D0%B1%27%D1%94%D0%BA%D1%82%D0%BD%D0%BE-%D0%BE%D1%80%D1%96%D1%94%D0%BD%D1%82%D0%BE%D0%B2%D0%B0%D0%BD%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F))
             // You should not understand everything in SOLID at this stage but you should read
-            // Verifying that folder exists. 
-            if (!Directory.Exists(FolderPath))
-            {
-                throw new DirectoryNotFoundException($"'{FolderPath}' is not a valid directory.");
-            }
+
             LogFlags.ConsoleFlag = false;
             LogFlags.FileFlag = false;
-            foreach (string cLA in commandLineArgument)
+            foreach (string cLA in commandLineArguments)
             {
                 if (Regex.IsMatch(cLA, pattern3))
                 {
                     LogFlags.ConsoleFlag = true;
                 }
+                string filePath = folderPath + @"\Result.txt";
                 if (Regex.IsMatch(cLA, pattern4))
                 {
                     LogFlags.FileFlag = true;
                 }
+                else
+                {
+                    filePath = null;
+                }
+                if (Regex.IsMatch(cLA, pattern5))
+                {
+                    var matchFilePath = Regex.Match(cLA, pattern5);
+                    filePath = Regex.Replace(matchFilePath.Value, pattern6, String.Empty);
+                }
             }
-            return FolderPath;
-
-            /*
-            // Parsing folder path from launch argument
-            int first = commandLineArgument[0].IndexOf("'");
-            int last = commandLineArgument[0].LastIndexOf("'");
-            // Verifying that both quotations was set properly.
-            if (first == last){
-                throw new quotationException();
-            }
-            //string FolderPath = commandLineArgument[0].Substring(first + 1, last - first - 1);
-            */
-
-            /*
-            string pattern1 = @"[+-]?[+-]?folder=['][^']*[']";
-            string pattern2 = @"([+-]?[+-]?folder=|['])";
-            string name = @"New --folder='c:/test folder/gfdfg/435432/x≥‚‡‚Ù≥‡Ô' is hfdghsfhgf";
-            var name2 = Regex.Match(name, pattern1);
-            var name3 = Regex.Replace(name2.Value, pattern2,String.Empty);
-            Console.WriteLine(name2.Value);
-            Console.WriteLine(name3);
-            */
+            return folderPath;
         }
     }
 }

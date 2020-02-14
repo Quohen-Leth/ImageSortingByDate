@@ -11,8 +11,8 @@ namespace ImageDateRead
         }
 
         // TODO support third option to save log in memory  (just save in string variable)
-        //TODO avoid using full namespace like System.Collections.Generic.List  use List instead and import namespace in using
-        public bool Output(System.Collections.Generic.List<CurrFileInfo> fileInfoList, string path, bool consoleOut, bool fileOut)
+        //Comleted TODO avoid using full namespace like System.Collections.Generic.List  use List instead and import namespace in using
+        public bool Output(List<CurrFileInfo> fileInfoList, string path, bool consoleOut, bool fileOut)
         {
             bool res = true;
             var list2 = new List<string>();

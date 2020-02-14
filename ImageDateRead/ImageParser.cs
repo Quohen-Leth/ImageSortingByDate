@@ -49,16 +49,12 @@ namespace ImageDateRead
             catch
             {
             }
-            //Console.WriteLine($"{fl.Name} - { crDate } - { mdDate } - { exifDate }");
             // Adding image Dates to struct CurrFileInfo
             filePath.DateCreated = crDate;
             filePath.DateModified = mdDate;
             filePath.DateEXIF = exifDate;
             return filePath;
         }
-
-
-
 
         // Method that reads all available EXIF fields in selected file and returns their Id, Type and Length.
         /*static void OneImgFileDate()
