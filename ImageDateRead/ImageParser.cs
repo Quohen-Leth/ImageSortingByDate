@@ -24,7 +24,7 @@ namespace ImageDateRead
         }
 
         //TODO avoid using static methods
-        public static CurrFileInfo GetDateFromFile(CurrFileInfo filePath)
+        public CurrFileInfo GetDateFromFile(CurrFileInfo filePath)
         {
             var fl = new FileInfo(filePath.Path);
             // Reading file creation date.

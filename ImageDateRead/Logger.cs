@@ -8,27 +8,32 @@ namespace ImageDateRead
         public Logger(string path = null, bool consoleOut = false, bool fileOut = false)
         {
             //TODO save these vars in class,  do not pass everytime in log methods
+            // Yurko' remark (for himself): how to use non static objects during program run. 
         }
 
         // TODO support third option to save log in memory  (just save in string variable)
+        // Yurko's remark: haven't understand clearly, log is already in memory, it saved in List<CurrFileInfo> imgFiles2
         //Comleted TODO avoid using full namespace like System.Collections.Generic.List  use List instead and import namespace in using
-        public bool Output(List<CurrFileInfo> fileInfoList, string path, bool consoleOut, bool fileOut)
+        public bool Output(List<CurrFileInfo> fileInfoList, RunParameters rParams)
         {
             bool res = true;
             var list2 = new List<string>();
             foreach (var fl in fileInfoList)
             {
                 list2.Add($"{fl.Path} - {fl.DateCreated} - {fl.DateModified} - {fl.DateEXIF}");
-                if (consoleOut)
+                if (rParams.ConsoleFlag)
                 {
                     Console.WriteLine($"{fl.Path} - {fl.DateCreated} - {fl.DateModified} - {fl.DateEXIF}");
                 }
             }
-            if (fileOut)
+            if (rParams.FileFlag)
             {
                 try
                 {
-                    System.IO.File.WriteAllLines($"{path}\\Result.txt", list2);
+                    // Yurko's remark: this time I used static system.io.file.WriteAllLines() as recommended here: https://docs.microsoft.com/ru-ru/dotnet/csharp/programming-guide/file-system/how-to-write-to-a-text-file
+                    // WriteAllLines creates a file, writes a collection of strings to the file,
+                    // and then closes the file.  You do NOT need to call Flush() or Close().
+                    System.IO.File.WriteAllLines(rParams.FilePath, list2);
                 }
                 catch
                 {

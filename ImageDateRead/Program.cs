@@ -8,10 +8,12 @@ namespace ImageDateRead
     {
         static void Main(string[] args)
         {
-            string imgDirPath;
+            // Yurko's remark: Is this ok?)
+            var runParams = new RunParameters();
+            var cLAParser = new CommandLineArgumentsParser();
             try
             {
-                imgDirPath = CommandLineArgumentsParser.Parse(args);
+                runParams = cLAParser.Parse(args);
             }
             catch(Exception ex)
             {
@@ -20,26 +22,27 @@ namespace ImageDateRead
                 return;
             }
             // Verifying that folder exists.
-            if (!Directory.Exists(imgDirPath))
+            if (!Directory.Exists(runParams.FolderPath))
             {
-                Console.WriteLine($"'{imgDirPath}' is not a valid directory.");
+                Console.WriteLine($"'{runParams.FolderPath}' is not a valid directory.");
                 return;
             }
-            Console.WriteLine($"In Directory {imgDirPath}:");
+            Console.WriteLine($"In Directory {runParams.FolderPath}:");
             var curFolderScanner = new FolderScanner();
             // Completed TODO avoid using full namespace import namespace in using. It is hard to read code with full namespaces
-            List<CurrFileInfo> imgFiles = curFolderScanner.GetFiles(imgDirPath, new List<CurrFileInfo>(),"*.jp*");
-            Console.WriteLine($"{imgFiles.Count} JPEG files total.");
-            List<CurrFileInfo> imgFiles2 = new List<CurrFileInfo>();
-            foreach (var fl in imgFiles)
+            List<CurrFileInfo> imgFiles1 = curFolderScanner.GetFiles(runParams.FolderPath, new List<CurrFileInfo>(),"*.jp*");
+            Console.WriteLine($"{imgFiles1.Count} JPEG files total.");
+            var imgFiles2 = new List<CurrFileInfo>();
+            foreach (var fl1 in imgFiles1)
             {
-                CurrFileInfo fl1 = ImageParser.GetDateFromFile(fl);
-                imgFiles2.Add(fl1);
+                var imPars = new ImageParser();
+                CurrFileInfo fl2 = imPars.GetDateFromFile(fl1);
+                imgFiles2.Add(fl2);
             }
-            if (LogFlags.ConsoleFlag || LogFlags.FileFlag)
+            if (runParams.ConsoleFlag || runParams.FileFlag)
             {
                 var results = new Logger();
-                bool completed = results.Output(imgFiles2, imgDirPath, LogFlags.ConsoleFlag, LogFlags.FileFlag);
+                bool completed = results.Output(imgFiles2, runParams);
                 if (completed)
                 {
                     Console.WriteLine("Completed");

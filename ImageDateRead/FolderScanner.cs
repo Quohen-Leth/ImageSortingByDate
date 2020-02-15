@@ -22,6 +22,9 @@ namespace ImageDateRead
     public class FolderScanner
     {
         // Completed TODO reminder C#  code convention for naming variables and methods
+
+        // Yurko's remark: There is no need to return the List of structs, it can't be modified further by adding some other params (as I understand).
+        // It's enought to return a list of strings with filenames.
         public List<CurrFileInfo> GetFiles(string searchDir, List<CurrFileInfo> jfiles, string searchPattern)
         {
             foreach (string f in Directory.GetFiles(searchDir, searchPattern))
