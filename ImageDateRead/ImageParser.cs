@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Drawing;
@@ -8,7 +9,6 @@ namespace ImageDateRead
 {
     public class ImageParser
     {
-
         public ImageParser()
         {
         }
@@ -18,13 +18,22 @@ namespace ImageDateRead
         /// </summary>
         /// <param name="inputFolder">image input folder</param>
         /// <param name="output">Output object where to save info (console, file memory)</param>
-        public void CreateImageFileStatistic(string inputFolder, Logger output)
+        public void CreateImageFileStatistic(string inputFolder, ILogger output)
         {
-            // TODO implement 
+            var curFolderScanner = new FolderScanner();
+
+            List<CurrFileInfo> files = curFolderScanner.GetFiles(inputFolder, "*.jp*");
+            Console.WriteLine($"{files.Count} JPEG files total.");
+            
+            foreach (var fl in files)
+            {
+                var f = SetDateFromFile(fl);
+                output.Log($"{f.Path} - {f.DateCreated} - {f.DateModified} - {f.DateEXIF}");
+            }
         }
 
-        //TODO avoid using static methods
-        public CurrFileInfo GetDateFromFile(CurrFileInfo filePath)
+        
+        public CurrFileInfo SetDateFromFile(CurrFileInfo filePath)
         {
             var fl = new FileInfo(filePath.Path);
             // Reading file creation date.
@@ -44,11 +53,13 @@ namespace ImageDateRead
                 var enc = new ASCIIEncoding();
                 // Converting array of bytes to string and cutting null from end.
                 string strng306 = enc.GetString(exif306, 0, exif306.Length - 1);
-                exifDate = DateTime.ParseExact(strng306, "yyyy:MM:dd HH:mm:ss", CultureInfo.CurrentCulture, DateTimeStyles.None);
+                exifDate = DateTime.ParseExact(strng306, "yyyy:MM:dd HH:mm:ss", CultureInfo.CurrentCulture,
+                    DateTimeStyles.None);
             }
             catch
             {
             }
+
             // Adding image Dates to struct CurrFileInfo
             filePath.DateCreated = crDate;
             filePath.DateModified = mdDate;
