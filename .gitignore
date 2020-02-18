@@ -1,7 +1,7 @@
-ImageDateRead/bin/Debug/
-ImageDateRead/obj/Debug/
-.vs/ImageDateRead/v14/
-.vs/ImageDateRead/v16/
+bin/
+obj/
+.vs/
+.vs/
 packages/
 tools/
 output/
